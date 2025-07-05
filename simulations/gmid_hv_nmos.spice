@@ -1,0 +1,46 @@
+** sch_path: /foss/designs/gmid_hv_nmos.sch
+**.subckt gmid_hv_nmos
+Vgs net1 GND 0.75
+Vds net3 GND 1.0
+Vd net3 net2 0
+.save i(vd)
+XM1 net2 net1 GND GND sg13_hv_nmos w=10u l=0.45u ng=1 m=1
+**** begin user architecture code
+
+.lib cornerMOShv.lib mos_tt
+
+
+
+.param temp=27
+.control
+
+set filetype=ascii
+save @N.XM1.Nsg13_hv_nmos[ide] @N.XM1.Nsg13_hv_nmos[vgt]
+save @N.XM1.Nsg13_hv_nmos[gm]  @N.XM1.Nsg13_hv_nmos[gds]
+save @N.XM1.Nsg13_hv_nmos[cgg] @N.XM1.Nsg13_hv_nmos[w]
+
+set wr_vecnames
+foreach Lnow 0.5 1.0 1.5 2.0 5.0 10
+alter @N.XM1.Nsg13_hv_nmos[l]=$Lnow*1e-6
+dc Vgs 0.0 3.0 0.01
+let n=$Lnow
+let vgt{$&n}=@N.XM1.Nsg13_hv_nmos[vgt]
+let gmid{$&n}=@N.XM1.Nsg13_hv_nmos[gm]/@N.XM1.Nsg13_hv_nmos[ide]
+let gain{$&n}=@N.XM1.Nsg13_hv_nmos[gm]/@N.XM1.Nsg13_hv_nmos[gds]
+let idw{$&n}=@N.XM1.Nsg13_hv_nmos[ide]/@N.XM1.Nsg13_hv_nmos[w]
+let ft{$&n}=@N.XM1.Nsg13_hv_nmos[gm]/(2*pi*@N.XM1.Nsg13_hv_nmos[cgg])
+wrdata gmid_vgt.dat gmid{$&n} vs vgt{$&n}
+wrdata gain_gmid.dat gain{$&n} vs gmid{$&n}
+wrdata ft_gmid.dat ft{$&n} vs gmid{$&n}
+wrdata idw_gmid.dat idw{$&n} vs gmid{$&n}
+set appendwrite
+
+end
+
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end
