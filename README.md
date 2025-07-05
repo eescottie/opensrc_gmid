@@ -6,3 +6,7 @@ In this work, I use the [IIC-OSIC-TOOLS Docker Image](https://github.com/iic-jku
 - Gm/Gds vs Gm/Id
 - fT vs Gm/Id
 - Id/W vs Gm/Id
+
+## XSCHEM Schematic Explain
+![image](https://github.com/user-attachments/assets/e1e23f29-f0f7-4d3b-837a-096ef35db554)
+
