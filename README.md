@@ -10,7 +10,7 @@ In this schematic (Fig. 1), NMOS is used as an example.  The simulation sweeps t
 ```
 foreach Lnow 0.5 1.0 1.5 2.0 5.0 10
 ```
-<img src="/images/schematic.png" width="640px" ><br>
+
 Fig. 1:  Screen capture of the schematic
 
 Once the simulation is completed.  Four data files are generated in the 'simulations' directory.  They are:
